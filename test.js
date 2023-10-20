@@ -1,4 +1,4 @@
-const db = require('./controllers/dbContext');
+//const db = require('./controllers/dbContext');
 
 
 /*db.query('SELECT 1 + 1 as result', (error, results, fields) => {
@@ -103,7 +103,12 @@ async function testQuery() {
 testQuery();
 
 */
-
+const db = {
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
+};
 
 
 async function testDatabaseConnection() {
