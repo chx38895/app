@@ -84,7 +84,7 @@ async function testQuery() {
 
 */
 
-
+/*
 async function testQuery() {
   try {
     const user = "34870542-48d3-4ea7-b987-b79ef1c570ec";
@@ -101,3 +101,28 @@ async function testQuery() {
   }
 }
 testQuery();
+
+*/
+
+
+
+async function testDatabaseConnection() {
+  try {
+    const connection = await db.getConnection(); // Acquire a connection from the pool
+
+    // Check the database connection
+    const [rows] = await connection.query('SELECT 1'); // A simple test query
+
+    console.log('Connected to the database');
+    console.log('Result of SELECT 1:', rows); // Log the query result
+
+    connection.release(); // Release the connection back to the pool
+    process.exit(0);
+  } catch (error) {
+    console.error('Error connecting to the database:', error);
+    process.exit(1);
+  }
+}
+
+// Call the function to test the database connection
+testDatabaseConnection();
