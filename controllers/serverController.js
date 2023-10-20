@@ -8,7 +8,6 @@ const sessionMiddleware = session({
     saveUninitialized: true,
     cookie: {
         sameSite: 'strict',
-        httpOnly: 'true'
     }
 })
 
