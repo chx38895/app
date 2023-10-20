@@ -1,4 +1,6 @@
 const express = require('express');
+const session = require("express-session");
+const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
 const db = require('./controllers/dbContext.js');
 const registerRoute = require('./routes/registerRoute');
 const loginRoute = require('./routes/loginRoute');
@@ -8,10 +10,7 @@ const isAuth = require('./isAuth');
 const dotenv = require('dotenv');
 const app = express();
 const port = process.env.PORT || 3000;
-const {
-  sessionMiddleware,
-  socketConfig,
-} = require("./controllers/serverController");
+
 
 
 app.use(express.json());
@@ -25,9 +24,9 @@ const io = new Server(server);
 
 dotenv.config();
 
-app.use(sessionMiddleware);
+//app.use(sessionMiddleware);
 
-io.use(socketConfig(sessionMiddleware));
+io.use(wrap(session({ secret: "cats" })));
 io.use((socket, next) => {
   const auth = socket.request.session.userData;  
   if (auth) {
