@@ -103,7 +103,10 @@ async function testQuery() {
 testQuery();
 
 */
-const db = {
+const mysql = require('mysql2/promise');
+require('dotenv').config();
+
+const dbConfig = {
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
@@ -113,7 +116,8 @@ const db = {
 
 async function testDatabaseConnection() {
   try {
-    const connection = await db.getConnection(); // Acquire a connection from the pool
+    const pool = mysql.createPool(dbConfig);
+    const connection = await pool.getConnection(); // Acquire a connection from the pool
 
     // Check the database connection
     const [rows] = await connection.query('SELECT 1'); // A simple test query
@@ -122,10 +126,12 @@ async function testDatabaseConnection() {
     console.log('Result of SELECT 1:', rows); // Log the query result
 
     connection.release(); // Release the connection back to the pool
-    process.exit(0);
+    pool.end(); // Close the connection pool
+
+    process.exit(0); // Exit with success code
   } catch (error) {
     console.error('Error connecting to the database:', error);
-    process.exit(1);
+    process.exit(1); // Exit with error code
   }
 }
 
