@@ -29,6 +29,7 @@ router.post('/', async (req, res) => {
     // Store userData in session
     req.session.userData = userData;
 
+
     
     res.sendStatus(200);
   } catch (error) {
