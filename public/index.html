@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Messenger</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>
+      <button id="logout-btn" onclick="handleLogout()">I/O</button>
+      <div class="contacts-button">
+        <button id="contacts-roll" onclick="ContactsSwitch()">Contacts</button>
+        <div id="indicator"></div>
+      </div>
+      <button class="theme">&#9788 / &#9790</button>
+    </h1>
+    <div class="chat-container">
+      <div id="chat-pane" class="chat-box">
+        <div id="messages" class="message-box">
+          <div id="recipient-username"></div>
+          <div id="current-chat" class="chat"></div>
+        </div>
+        <form id="chat-form">
+          <input type="text" id="message-input" placeholder="Choose recipient from contacts" autocomplete="off" required>
+          <button type='submit' id="send">&#9166</button>
+        </form>
+      </div>
+      <div id="contacts-pane" class="contacts">
+        <div class="search-bar-container">
+          <input type="text" id="search-bar" placeholder="Search User">
+          <button id="find-button" type="button">&#9166</button>
+          <button id="clear-button">X</button>
+        </div>
+        <div id="menu-results"></div>
+        <div id="contact-list"></div>
+        
+        
+        <div id="unknown-list"></div>
+
+      </div>
+    </div>
+  </div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>
